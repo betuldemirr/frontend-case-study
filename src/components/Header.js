@@ -1,17 +1,33 @@
-import React from 'react';
-import { Container } from 'react-bootstrap';
+import React, { useState } from 'react';
+import { Col, Container, Form, Row } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
-const Header = () => {
-    const onClick = () => {
-        window.location.href = '/';
+const Header = ({ onSearch }) => {
+    const [searchTerm, setSearchTerm] = useState('');
+
+    const onChange = (e) => {
+        setSearchTerm(e.target.value);
+        onSearch(e.target.value);
     };
 
     return (
-        <Container fluid className='px-0 bg-primary py-4'>
-            <Link to="/" onClick={onClick} style={{ textDecoration: 'none', color: 'white' }}>
-                ETERATION
-            </Link>
+        <Container fluid className='bg-primary py-4'>
+            <Row>
+                <Col xs={2}>
+                    <Link to="/" className='fw-bold' style={{ textDecoration: 'none', color: 'white', fontSize: '25px' }}>
+                        Eteration
+                    </Link>
+                </Col>
+                <Col xs={8}>
+                    <Form.Control
+                        type="text"
+                        placeholder="search a product..."
+                        value={searchTerm}
+                        onChange={onChange}
+                        style={{ width: '100%', height: '50px' }}
+                    />
+                </Col>
+            </Row>
         </Container>
     );
 }
