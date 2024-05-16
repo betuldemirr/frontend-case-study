@@ -3,26 +3,44 @@ import { Card, Button, Col, Row } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import { getAllProducts } from '../services/api';
 
-const ProductList = () => {
+const ProductList = ({ searchTerm }) => {
     const navigate = useNavigate();
     const [products, setProducts] = useState([]);
 
     useEffect(() => {
-        getAllProducts()
-            .then(products => {
+        const fetchProducts = async () => {
+            try {
+                const products = await getAllProducts();
                 setProducts(products);
-            })
-            .catch(error => {
+            } catch (error) {
                 console.error('An error occurred while fetching the products:', error);
-            });
+            }
+        };
+        fetchProducts();
     }, []);
+
+    useEffect(() => {
+        const filterProducts = async () => {
+            try {
+                const allProducts = await getAllProducts();
+                
+                const filteredProducts = searchTerm
+                    ? allProducts.filter(product => product.name.toLowerCase().includes(searchTerm.toLowerCase()))
+                    : allProducts;
+                setProducts(filteredProducts);
+            } catch (error) {
+                console.error('An error occurred while filtering the products:', error);
+            }
+        };
+        filterProducts();
+    }, [searchTerm]);
 
     const goToProductDetail = (productId) => {
         navigate(`/product-details/${productId}`);
     };
 
     const addToCart = (productId) => {
-        console.log(' add to cart ${productId} ');
+        console.log(` add to cart ${productId} `);
     };
 
     return (

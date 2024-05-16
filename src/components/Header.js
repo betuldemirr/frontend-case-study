@@ -1,17 +1,19 @@
 import React, { useState } from 'react';
-import { Col, Container, Form, Row } from 'react-bootstrap';
+import { Col, Container, Form, Row, Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
-import { searchProducts } from '../actions/searchTermActions';
 
-const Header = () => {
-    const dispatch = useDispatch();
-    const [searchTerm, setSearchTermLocal] = useState('');
+const Header = ({ onSearch }) => {
+    const [searchTerm, setSearchTerm] = useState('');
 
     const onChange = (e) => {
-        const { value } = e.target;
-        setSearchTermLocal(value);
-        dispatch(searchProducts(value));
+        setSearchTerm(e.target.value);
+    };
+
+    const onKeyPress = (e) => {
+        if (e.key === 'Enter') {
+            onSearch(searchTerm);
+            setSearchTerm('');
+        }
     };
 
     return (
@@ -22,14 +24,16 @@ const Header = () => {
                         Eteration
                     </Link>
                 </Col>
-                <Col xs={8}>
+                <Col xs={6} className='d-flex'>
                     <Form.Control
                         type="text"
                         placeholder="search a product..."
                         value={searchTerm}
                         onChange={onChange}
+                        onKeyPress={onKeyPress}
                         style={{ width: '100%', height: '50px' }}
                     />
+                    <Button onClick={() => onSearch(searchTerm)} variant="light">Search</Button>
                 </Col>
             </Row>
         </Container>
