@@ -1,13 +1,17 @@
 import React, { useState } from 'react';
 import { Col, Container, Form, Row } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { searchProducts } from '../actions/searchTermActions';
 
-const Header = ({ onSearch }) => {
-    const [searchTerm, setSearchTerm] = useState('');
+const Header = () => {
+    const dispatch = useDispatch();
+    const [searchTerm, setSearchTermLocal] = useState('');
 
     const onChange = (e) => {
-        setSearchTerm(e.target.value);
-        onSearch(e.target.value);
+        const { value } = e.target;
+        setSearchTermLocal(value);
+        dispatch(searchProducts(value));
     };
 
     return (
