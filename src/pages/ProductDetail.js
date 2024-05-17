@@ -23,23 +23,29 @@ const ProductDetail = () => {
     }, [id]);
 
     return (
-        <div className="product-detail">
+        <div className="product-detail my-4">
             {product && (
                 <Card>
                     <Row>
-                        <Col md={6}>
+                        <Col lg={6}>
                             <Card.Img variant="top" src={product.image} />
                         </Col>
-                        <Col md={6}>
+                        <Col lg={6}>
                             <Card.Body>
                                 <Card.Title>{product.name}</Card.Title>
                                 <Card.Text>{product.description}</Card.Text>
-                                <Card.Text>Price: {product.price}</Card.Text>
                             </Card.Body>
                             <Card.Footer>
-                                <Button onClick={() => dispatch(addToCart(product))} variant="success" className="w-100">
-                                    Add to Cart
-                                </Button>
+                                <Row>
+                                    <Col xs={6}>
+                                        <Card.Text className='text-primary text-center fw-bold'>Price: {product.price} ₺</Card.Text>
+                                    </Col>
+                                    <Col xs={6}>
+                                        <Button onClick={() => dispatch(addToCart(product))} variant="primary" className="w-100 h-100">
+                                            Add to Cart
+                                        </Button>
+                                    </Col>
+                                </Row>
                             </Card.Footer>
                         </Col>
                     </Row>
