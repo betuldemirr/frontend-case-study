@@ -10,10 +10,10 @@ const Cart = () => {
 
     return (
         <div className="Cart my-4">
-            <h2>Cart</h2>
             {cartItems.length === 0 ? (
                 <Row>
                     <Col>
+                        <h3>Cart</h3>
                         <p>Your cart is empty</p>
                     </Col>
                 </Row>
