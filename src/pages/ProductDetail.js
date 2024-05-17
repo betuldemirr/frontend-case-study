@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { getProductById } from '../services/api';
-import { Card, Col, Row } from 'react-bootstrap';
+import { Card, Col, Row, Button } from 'react-bootstrap';
+import { addToCart } from '../features/cartSlice';
+import { useDispatch } from 'react-redux';
 
 const ProductDetail = () => {
     const { id } = useParams();
     const [product, setProduct] = useState(null);
+    const dispatch = useDispatch();
 
     useEffect(() => {
         const fetchProduct = async () => {
@@ -33,6 +36,11 @@ const ProductDetail = () => {
                                 <Card.Text>{product.description}</Card.Text>
                                 <Card.Text>Price: {product.price}</Card.Text>
                             </Card.Body>
+                            <Card.Footer>
+                                <Button onClick={() => dispatch(addToCart(product))} variant="success" className="w-100">
+                                    Add to Cart
+                                </Button>
+                            </Card.Footer>
                         </Col>
                     </Row>
                 </Card>

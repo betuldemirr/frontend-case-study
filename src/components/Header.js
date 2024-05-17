@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import { Col, Container, Form, Row, Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 const Header = ({ onSearch }) => {
+    const cartTotalPrice = useSelector(state => state.cart.cartTotalPrice);
     const [searchTerm, setSearchTerm] = useState('');
 
     const onChange = (e) => {
@@ -34,6 +36,9 @@ const Header = ({ onSearch }) => {
                         style={{ width: '100%', height: '50px' }}
                     />
                     <Button onClick={() => onSearch(searchTerm)} variant="light">Search</Button>
+                </Col>
+                <Col xs={2}>
+                    <p>Total Price: {cartTotalPrice}</p>
                 </Col>
             </Row>
         </Container>
