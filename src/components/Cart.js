@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { removeFromCart, increaseItemQuantity, decreaseItemQuantity, clearCart } from '../features/cartSlice';
+import { removeFromCart, increaseItemQuantity, decreaseItemQuantity } from '../features/cartSlice';
 import { Button, ListGroup, Row, Col } from 'react-bootstrap';
 
 const Cart = () => {
@@ -35,7 +35,7 @@ const Cart = () => {
                             </ListGroup.Item>
                         ))}
                     </ListGroup>
-                    <p>Total Price: {cartTotalPrice.toFixed(2)} ₺</p>
+                    <p>Total Price: {cartTotalPrice} ₺</p>
                 </>
             )}
         </div>
