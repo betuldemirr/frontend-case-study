@@ -1,8 +1,12 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-  cartItems: [],
-  cartTotalPrice: 0
+  cartItems: localStorage.getItem("cartTotalPrice")
+    ? JSON.parse(localStorage.getItem("cartItems"))
+    : [],
+  cartTotalPrice: localStorage.getItem("cartTotalPrice")
+    ? parseFloat(localStorage.getItem("cartTotalPrice"))
+    : 0,
 };
 
 const calculateTotalPrice = (items) => {
@@ -26,6 +30,9 @@ const cartSlice = createSlice({
           : state.cartItems.push({ id, name, price, quantity: 1 });
         
         state.cartTotalPrice = calculateTotalPrice(state.cartItems);
+
+        localStorage.setItem('cartItems', JSON.stringify(state.cartItems));
+        localStorage.setItem('cartTotalPrice', state.cartTotalPrice.toString());
     },      
     removeFromCart(state, action) {
         const { id } = action.payload;
@@ -35,6 +42,8 @@ const cartSlice = createSlice({
             state.cartItems = state.cartItems.filter(item => item.id !== id);
             state.cartTotalPrice = calculateTotalPrice(state.cartItems);
         }
+        localStorage.setItem('cartItems', JSON.stringify(state.cartItems));
+        localStorage.setItem('cartTotalPrice', state.cartTotalPrice.toString());
     },    
     increaseItemQuantity(state, action) {
         const { id } = action.payload;
@@ -44,6 +53,8 @@ const cartSlice = createSlice({
             itemToIncrease.quantity += 1;
             state.cartTotalPrice = calculateTotalPrice(state.cartItems);
         }
+        localStorage.setItem('cartItems', JSON.stringify(state.cartItems));
+        localStorage.setItem('cartTotalPrice', state.cartTotalPrice.toString());
     },
     decreaseItemQuantity(state, action) {
         const { id } = action.payload;
@@ -53,10 +64,12 @@ const cartSlice = createSlice({
             itemToDecrease.quantity -= 1;
             state.cartTotalPrice = calculateTotalPrice(state.cartItems);
         }
+        localStorage.setItem('cartItems', JSON.stringify(state.cartItems));
+        localStorage.setItem('cartTotalPrice', state.cartTotalPrice.toString());
     },
   }
 });
 
-export const { addToCart, removeFromCart, increaseItemQuantity, decreaseItemQuantity, clearCart } = cartSlice.actions;
+export const { addToCart, removeFromCart, increaseItemQuantity, decreaseItemQuantity } = cartSlice.actions;
 
 export default cartSlice.reducer;
