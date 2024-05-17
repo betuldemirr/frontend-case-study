@@ -60,10 +60,12 @@ const cartSlice = createSlice({
         const { id } = action.payload;
         const itemToDecrease = state.cartItems.find(item => item.id === id);
 
-        if (itemToDecrease) {
-            itemToDecrease.quantity -= 1;
-            state.cartTotalPrice = calculateTotalPrice(state.cartItems);
-        }
+        itemToDecrease.quantity === 1
+           ? state.cartItems = state.cartItems.filter(item => item.id !== id)
+           : itemToDecrease.quantity -= 1;
+
+        state.cartTotalPrice = calculateTotalPrice(state.cartItems);
+
         localStorage.setItem('cartItems', JSON.stringify(state.cartItems));
         localStorage.setItem('cartTotalPrice', state.cartTotalPrice.toString());
     },
