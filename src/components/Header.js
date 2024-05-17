@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { Col, Container, Form, Row, Button } from 'react-bootstrap';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCartShopping } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
@@ -19,26 +21,27 @@ const Header = ({ onSearch }) => {
     };
 
     return (
-        <Container fluid className='bg-primary py-4'>
+        <Container fluid className='Header bg-primary p-4'>
             <Row>
-                <Col xs={2}>
+                <Col xs={3} lg={3}>
                     <Link to="/" className='fw-bold' style={{ textDecoration: 'none', color: 'white', fontSize: '25px' }}>
                         Eteration
                     </Link>
                 </Col>
-                <Col xs={6} className='d-flex'>
+                <Col xs={6} lg={5} className='search-wrapper'>
                     <Form.Control
                         type="text"
                         placeholder="search a product..."
+                        className='input'
                         value={searchTerm}
                         onChange={onChange}
                         onKeyPress={onKeyPress}
-                        style={{ width: '100%', height: '50px' }}
                     />
-                    <Button onClick={() => onSearch(searchTerm)} variant="light">Search</Button>
+                    <Button className='btn' onClick={() => onSearch(searchTerm)} variant="light">Search</Button>
                 </Col>
-                <Col xs={2}>
-                    <p>Total Price: {cartTotalPrice}</p>
+                <Col xs={3} lg={4} className='total-price-wrapper'>
+                    <FontAwesomeIcon icon={faCartShopping} />
+                    <span>{cartTotalPrice} ₺</span>
                 </Col>
             </Row>
         </Container>

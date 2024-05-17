@@ -1,0 +1,61 @@
+@mixin center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.Cart {
+    .list-group-item {
+        position: relative;
+        .quantity-wrapper {
+            @include center;
+            .btn {
+                width: 35px;
+                height: 35px;
+                background-color: transparent;
+                color: black;
+                font-size: 1.25rem;
+                padding: 0;
+                &.removeBtn {
+                    position: absolute;
+                    top: 0;
+                    right: 0;
+                    border: none;
+                }
+            }
+            span {
+                width: 30px;
+                text-align: center;
+                font-weight: 500
+            }
+        }
+    }
+    .total-price {
+        @include center;
+        font-size: 1.25rem;
+        font-weight: 500;
+    }
+}
+.Header {
+    .search-wrapper {
+        @include center;
+        .input, .btn {
+            height: 50px;
+            border-radius: 0;
+        }
+    }
+    .total-price-wrapper {
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        svg {
+            color: white;
+            height: 20px;
+        }
+        span {
+            color: white;
+            font-size: 1.25rem;
+            font-weight: 500;
+            margin-left: 5px;
+        }
+    }
+}

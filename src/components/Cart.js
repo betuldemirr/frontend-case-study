@@ -9,34 +9,40 @@ const Cart = () => {
     const dispatch = useDispatch();
 
     return (
-        <div className="Cart">
+        <div className="Cart my-4">
             <h2>Cart</h2>
             {cartItems.length === 0 ? (
-                <p>Your cart is empty</p>
+                <Row>
+                    <Col>
+                        <p>Your cart is empty</p>
+                    </Col>
+                </Row>
             ) : (
-                <>
+                <Row>
                     <ListGroup>
                         {cartItems.map((item, index) => (
                             <ListGroup.Item key={index}>
                                 <Row>
-                                    <Col xs={5}>
+                                    <Col xs={6}>
                                         <div>{item.name}</div>
                                         <div>{item.price} ₺</div>
                                     </Col>
-                                    <Col xs={4}>
-                                        <Button onClick={() => dispatch(increaseItemQuantity(item))}>+</Button>
-                                        <span>{item.quantity}</span>
-                                        <Button onClick={() => dispatch(decreaseItemQuantity(item))}>-</Button>
-                                    </Col>
-                                    <Col xs={2} className="text-end">
-                                        <Button variant="danger" onClick={() => dispatch(removeFromCart(item))}>X</Button>
+                                    <Col xs={6} className='d-flex align-items-center'>
+                                        <div className='quantity-wrapper'>
+                                            <Button className='btn' onClick={() => dispatch(increaseItemQuantity(item))}>+</Button>
+                                            <span>{item.quantity}</span>
+                                            <Button className='btn' onClick={() => dispatch(decreaseItemQuantity(item))}>-</Button>
+                                            <Button className='btn removeBtn' onClick={() => dispatch(removeFromCart(item))}>x</Button>
+                                        </div>
                                     </Col>
                                 </Row>
                             </ListGroup.Item>
                         ))}
+                        <ListGroup.Item>
+                            <p className='total-price my-4'>Total Price: {cartTotalPrice} ₺</p>
+                        </ListGroup.Item>
                     </ListGroup>
-                    <p>Total Price: {cartTotalPrice} ₺</p>
-                </>
+                </Row>
             )}
         </div>
     );

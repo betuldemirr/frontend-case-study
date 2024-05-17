@@ -63,7 +63,7 @@ const ProductList = ({ searchTerm }) => {
 
     return (
         <div className="product-list my-4">
-            <Row xs={1} md={2} lg={4} className="g-4">
+            <Row xs={1} md={2} lg={3} xl={4} className="g-4">
                 {currentProducts.map(product => (
                     <Col key={product.id}>
                         <Card>

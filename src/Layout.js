@@ -9,10 +9,10 @@ const Layout = ({ children, onSearch }) => {
             <Header onSearch={onSearch}/>
             <Container fluid>
                 <Row>
-                    <Col xs={10}>
+                    <Col md={9} xl={10}>
                         {children}
                     </Col>
-                    <Col xs={2}>
+                    <Col md={3} xl={2}>
                         <Cart />
                     </Col>
                 </Row>
