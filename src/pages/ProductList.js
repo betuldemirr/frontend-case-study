@@ -5,11 +5,13 @@ import { getAllProducts } from '../services/api';
 import { addToCart } from '../features/cartSlice';
 import { useDispatch } from 'react-redux';
 import Filter from '../components/Filter';
+//import { useSelector } from 'react-redux';
 
 const ProductList = ({ searchTerm }) => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const [products, setProducts] = useState([]);
+    //const { filteredProducts } = useSelector(state => state.filter);
     const [currentPage, setCurrentPage] = useState(1);
     const productsPerPage = 12;
 
